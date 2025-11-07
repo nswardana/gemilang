@@ -15,6 +15,7 @@ import {
   DialogActions,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export const MemberDetailPage = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ export const MemberDetailPage = () => {
   const [member, setMember] = useState(null);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogField, setDialogField] = useState(""); // "Alasan" or "Rumusan"
+  const [dialogField, setDialogField] = useState(""); // "Alasan", "Bantu Apa", "Rumusan"
   const [dialogContent, setDialogContent] = useState("");
 
   const loadMember = async () => {
@@ -40,18 +41,6 @@ export const MemberDetailPage = () => {
   useEffect(() => {
     loadMember();
   }, [id]);
-
-  const handleDelete = async () => {
-    if (!confirm("Yakin ingin menghapus anggota ini?")) return;
-    try {
-      await fetch(`${import.meta.env.VITE_API_URL}/api/members/${id}`, {
-        method: "DELETE",
-      });
-      navigate(-1);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const handleOpenDialog = (field, content) => {
     setDialogField(field);
@@ -125,18 +114,22 @@ export const MemberDetailPage = () => {
           <DetailItem label="Anak" value={member.anak} />
           <DetailItem label="Tinggal" value={member.tinggal} />
           <DetailItem label="Kerja" value={member.kerja} />
+          
+          {/* Icon untuk membuka dialog */}
           <DetailItem
             label="Alasan"
-            value={'-'}
+            icon={<VisibilityIcon fontSize="small" />}
             onClick={() => handleOpenDialog("Alasan", member.alasan)}
-            clickable
           />
-          <DetailItem label="Bantu Apa" value={member.bantu_apa} />
+          <DetailItem
+            label="Bantu Apa"
+            icon={<VisibilityIcon fontSize="small" />}
+            onClick={() => handleOpenDialog("Bantu Apa", member.bantu_apa)}
+          />
           <DetailItem
             label="Rumusan"
-            value={'-'}
+            icon={<VisibilityIcon fontSize="small" />}
             onClick={() => handleOpenDialog("Rumusan", member.rumusan)}
-            clickable
           />
         </CardContent>
       </Card>
@@ -169,22 +162,21 @@ export const MemberDetailPage = () => {
 };
 
 /* Komponen kecil agar rapi */
-const DetailItem = ({ label, value, onClick, clickable }) => (
+const DetailItem = ({ label, value, onClick, icon }) => (
   <Box
     sx={{
       display: "flex",
       justifyContent: "space-between",
+      alignItems: "center",
       my: 0.5,
-      cursor: clickable ? "pointer" : "default",
-      p:1,
+      p: 1,
+      cursor: onClick ? "pointer" : "default",
     }}
     onClick={onClick}
   >
     <Typography variant="body2" color="text.secondary">
       {label}
     </Typography>
-    <Typography variant="body2" fontWeight={500}>
-      {value || "-"}
-    </Typography>
+    {icon ? icon : <Typography variant="body2" fontWeight={500}>{value || "-"}</Typography>}
   </Box>
 );
