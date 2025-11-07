@@ -4,7 +4,11 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 6173, // ⬅️ fix port di sini
+    port: 6173,
     host: true,
+    allowedHosts: [
+      "gemilang.beeasy.id",
+      "www.gemilang.beeasy.id",
+    ],
   },
 });
