@@ -13,7 +13,7 @@ export const GroupName = sequelize.define("GroupName", {
   }
 }, {
   timestamps: false,
-  tableName: "GroupName"
+  tableName: "GroupNames"
 });
 
 Category.hasMany(GroupName, { foreignKey: "category_id" });
