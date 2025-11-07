@@ -44,7 +44,7 @@ export const Member = sequelize.define(
   },
   {
     timestamps: false,
-    tableName: "members",
+    tableName: "Members",
   }
 );
 

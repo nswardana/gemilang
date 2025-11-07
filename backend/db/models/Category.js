@@ -7,5 +7,7 @@ export const Category = sequelize.define("Category", {
     allowNull: false
   }
 }, {
-  timestamps: false
+  timestamps: false,
+  tableName: "Members"
+
 });

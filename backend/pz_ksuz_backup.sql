@@ -40,33 +40,6 @@ INSERT INTO `Categories` VALUES (1,'KATEGORI PZ KSUZ'),(2,'KATEGORI PZ KSUZ'),(3
 UNLOCK TABLES;
 
 --
--- Table structure for table `group_names`
---
-
-DROP TABLE IF EXISTS `group_names`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `group_names` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `category_id` int DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `category_id` (`category_id`),
-  CONSTRAINT `group_names_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `group_names`
---
-
-LOCK TABLES `group_names` WRITE;
-/*!40000 ALTER TABLE `group_names` DISABLE KEYS */;
-INSERT INTO `group_names` VALUES (1,1,'FULL TIME'),(2,1,'BOLEH DIAJAK2'),(3,1,'BUAT HAL SENDIRI & TAK MENGATA'),(4,1,'TAK NAK & MENGELAK'),(5,1,'ANAK ABUYA & ANAK TC');
-/*!40000 ALTER TABLE `group_names` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `GroupNames`
 --
 
