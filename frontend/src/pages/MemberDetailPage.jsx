@@ -121,7 +121,7 @@ export const MemberDetailPage = () => {
 
           <Divider sx={{ my: 1.5 }} />
 
-          <DetailItem label="Isteri" value={member.isteri} />
+          <DetailItem label="Isteri" value={member.istri} />
           <DetailItem label="Anak" value={member.anak} />
           <DetailItem label="Tinggal" value={member.tinggal} />
           <DetailItem label="Kerja" value={member.kerja} />
