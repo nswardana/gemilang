@@ -8,6 +8,6 @@ export const Category = sequelize.define("Category", {
   }
 }, {
   timestamps: false,
-  tableName: "Members"
+  tableName: "Categories"
 
 });

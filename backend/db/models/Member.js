@@ -13,34 +13,13 @@ export const Member = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    istri: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    anak: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    tinggal: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    kerja: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    alasan: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    bantu_apa: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    rumusan: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
+    istri: DataTypes.STRING,
+    anak: DataTypes.STRING,
+    tinggal: DataTypes.STRING,
+    kerja: DataTypes.STRING,
+    alasan: DataTypes.TEXT,
+    bantu_apa: DataTypes.TEXT,
+    rumusan: DataTypes.TEXT,
   },
   {
     timestamps: false,
