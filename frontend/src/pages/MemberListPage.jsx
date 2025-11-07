@@ -262,8 +262,9 @@ export const MemberListPage = () => {
               }
               fullWidth
               margin="dense"
-              multiline={key === "rumusan"}
-            />
+              multiline={key === "rumusan" || key === "alasan"} // <- both multiline
+              rows={key === "rumusan" || key === "alasan" ? 5 : 5} // optional: give a default 3 rows
+              />
           ))}
         </DialogContent>
         <DialogActions>

@@ -9,16 +9,21 @@ import {
   Divider,
   CircularProgress,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 export const MemberDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [member, setMember] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogField, setDialogField] = useState(""); // "Alasan" or "Rumusan"
+  const [dialogContent, setDialogContent] = useState("");
 
   const loadMember = async () => {
     try {
@@ -48,6 +53,18 @@ export const MemberDetailPage = () => {
     }
   };
 
+  const handleOpenDialog = (field, content) => {
+    setDialogField(field);
+    setDialogContent(content || "-");
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+    setDialogField("");
+    setDialogContent("");
+  };
+
   if (loading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", mt: 10 }}>
@@ -65,9 +82,16 @@ export const MemberDetailPage = () => {
   }
 
   return (
-    <Box sx={{ maxWidth: 480, mx: "auto", px: 2, pb: 8 ,      minHeight: "100vh",
-      background: "linear-gradient(180deg, rgb(51, 98, 228) 0%, #ffffff 100%)",
-}}>
+    <Box
+      sx={{
+        maxWidth: 480,
+        mx: "auto",
+        px: 2,
+        pb: 8,
+        minHeight: "100vh",
+        background: "linear-gradient(180deg, rgb(51, 98, 228) 0%, #ffffff 100%)",
+      }}
+    >
       {/* Tombol kembali */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
         <IconButton onClick={() => navigate(-1)} size="small">
@@ -78,7 +102,6 @@ export const MemberDetailPage = () => {
         </Typography>
       </Box>
 
-     
       {/* Card info member */}
       <Card
         sx={{
@@ -102,11 +125,19 @@ export const MemberDetailPage = () => {
           <DetailItem label="Anak" value={member.anak} />
           <DetailItem label="Tinggal" value={member.tinggal} />
           <DetailItem label="Kerja" value={member.kerja} />
-          <DetailItem label="Alasan" value={member.alasan} />
+          <DetailItem
+            label="Alasan"
+            value={'-'}
+            onClick={() => handleOpenDialog("Alasan", member.alasan)}
+            clickable
+          />
           <DetailItem label="Bantu Apa" value={member.bantu_apa} />
-          <DetailItem label="Rumusan" value={member.rumusan} />
-
-         
+          <DetailItem
+            label="Rumusan"
+            value={'-'}
+            onClick={() => handleOpenDialog("Rumusan", member.rumusan)}
+            clickable
+          />
         </CardContent>
       </Card>
 
@@ -120,13 +151,35 @@ export const MemberDetailPage = () => {
       >
         ⬅️ Kembali ke Daftar
       </Button>
+
+      {/* Dialog untuk Alasan / Rumusan */}
+      <Dialog open={dialogOpen} onClose={handleCloseDialog} fullWidth>
+        <DialogTitle>{dialogField}</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2" whiteSpace="pre-line">
+            {dialogContent}
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Tutup</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
 
 /* Komponen kecil agar rapi */
-const DetailItem = ({ label, value }) => (
-  <Box sx={{ display: "flex", justifyContent: "space-between", my: 0.5 }}>
+const DetailItem = ({ label, value, onClick, clickable }) => (
+  <Box
+    sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      my: 0.5,
+      cursor: clickable ? "pointer" : "default",
+      p:1,
+    }}
+    onClick={onClick}
+  >
     <Typography variant="body2" color="text.secondary">
       {label}
     </Typography>
