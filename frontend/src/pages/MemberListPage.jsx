@@ -252,7 +252,7 @@ export const MemberListPage = () => {
       <Dialog open={open} onClose={handleClose} fullWidth>
         <DialogTitle>{editing ? "Edit Anggota" : "Tambah Anggota"}</DialogTitle>
         <DialogContent>
-          {Object.keys(formData).map((key) => (
+          {Object.keys(formData).filter((key) => key !== "id" && key !== "group_id").map((key) => (
             <TextField
               key={key}
               label={key.replace("_", " ").toUpperCase()}
